@@ -26,13 +26,21 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level3/**").hasRole("VIP3");
 
         //开启自动配置的登录功能
-        http.formLogin();
+//        http.formLogin();
         //1.Login请求来到登录页
+
+        http.formLogin().usernameParameter("user").passwordParameter("pwd").loginPage("/userlogin"); //定义自己登录页
+
+        //一旦定制 loginPage 那么 loginPage 的 post 请求就是登录
         //2./login?error 登录失败，重定向到这里
         //3.更多详细规则
 
         //开启自动配置的注销功能
         http.logout().logoutSuccessUrl("/");//注销成功以后来到首页
+
+        //开启记住我功能
+        http.rememberMe();
+        //登录成功之后，将cookie发送给浏览器，以后访问页面会带上cookie,只要通过检查就能免登录
     }
 
     //定义认证规则
@@ -45,7 +53,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("wangwu").password("123456").roles("VIP1", "VIP3");
     }
-
 
 
 }
