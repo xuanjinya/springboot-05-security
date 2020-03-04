@@ -30,6 +30,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         //1.Login请求来到登录页
         //2./login?error 登录失败，重定向到这里
         //3.更多详细规则
+
+        //开启自动配置的注销功能
+        http.logout().logoutSuccessUrl("/");//注销成功以后来到首页
     }
 
     //定义认证规则
@@ -42,4 +45,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("wangwu").password("123456").roles("VIP1", "VIP3");
     }
+
+
+
 }
